@@ -1,0 +1,44 @@
+# excluding gitignore in sub folders
+
+**/sftp-config.json
+# eclipse setting files
+maven-eclipse.xml
+.springBeans
+.pydevproject
+
+# maven target folder
+/target
+*/target
+
+*.pyc
+ci/log
+**/rebel.xml
+**/dubbo/**
+# idea
+/.idea
+*/.idea
+*.iml
+.DS_Store
+
+classes
+.gradle
+.gradletasknamecache
+/bin
+
+pom.xml.versionsBackup
+
+/.settings
+*/.settings
+.project
+.classpath
+.sonar
+*/.sonar
+out
+build
+
+/dubbo
+\$*
+*.log
+/.mvn
+/logging.path_IS_UNDEFINED
+web/logging.path_IS_UNDEFINED/
