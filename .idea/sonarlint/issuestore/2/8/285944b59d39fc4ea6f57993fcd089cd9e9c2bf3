@@ -1,0 +1,57 @@
+
+D
+java:S1168Ñ"&Return an empty array instead of null.(¥¹ï8ú•€Â¶/
+C
+java:S1168"&Return an empty array instead of null.(¥¹ï8Ò²ùı´/
+v
+java:S3012–"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(†å‘h8åòÀúµ/
+w
+java:S3012®"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(Å £²8åòÀúµ/
+9
+java:S3626Ù"Remove this redundant jump.(ÉŠ©ƒ8ú•€Â¶/
+u
+java:S3776ş"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¤ÿ¤…ùÿÿÿÿ8ú•€Â¶/
+9
+java:S3626›"Remove this redundant jump.(ÉŠ©ƒ8ú•€Â¶/
+A
+java:S1659ë"#Declare "sum12" on a separate line.(ëÌ°´8ú•€Â¶/
+K	java:S108À")Either remove or fill this block of code.(ÆùÜßùÿÿÿÿ8ú•€Â¶/
+W
+java:S1118":Add a private constructor to hide the implicit public one.(ìïá 8«ÆÔı´/
+D
+java:S1168º"&Return an empty array instead of null.(¥¹ï8ú•€Â¶/
+D
+java:S1168Ü"&Return an empty array instead of null.(¥¹ï8ú•€Â¶/
+A
+java:S1659„"#Declare "sum12" on a separate line.(ëÌ°´8ú•€Â¶/
+9
+java:S3626Î"Remove this redundant jump.(ÉŠ©ƒ8ú•€Â¶/
+D
+java:S1168¡"&Return an empty array instead of null.(¥¹ï8ú•€Â¶/
+[	java:S106®"9Replace this use of System.out or System.err by a logger.(¬Ëü¤úÿÿÿÿ8ú•€Â¶/
+V	java:S106 "9Replace this use of System.out or System.err by a logger.(ÍÍ½÷8ú•€Â¶/
+w
+java:S3012³"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(»ÏÒ²8åòÀúµ/
+p
+java:S3776r"SRefactor this method to reduce its Cognitive Complexity from 110 to the 15 allowed.(ÌÅ€¤8¼õ«úµ/
+w
+java:S3012"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(ûÏµî8á¶àúµ/
+|
+java:S3012©"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(¾â–¨şÿÿÿÿ8åòÀúµ/
+u
+java:S3776ã"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ËÎ÷åøÿÿÿÿ8ú•€Â¶/
+X	java:S107r"<Method has 8 parameters, which is greater than 7 authorized.(ÌÅ€¤8¼õ«úµ/
+V	java:S106Û"9Replace this use of System.out or System.err by a logger.(ÍÍ½÷8ú•€Â¶/
+[
+java:S1197Á"8Move the array designator from the variable to the type.(äÛşèıÿÿÿÿ8ú•€Â¶/
+w
+java:S3012›"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(†Œ«8Ğáúµ/
+t
+java:S3776
+"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(à’öøÿÿÿÿ8Ò²ùı´/
+{	java:S135½"YReduce the total number of break and continue statements in this loop to use at most one.(ãôİÄüÿÿÿÿ8åòÀúµ/
+C
+java:S1168"&Return an empty array instead of null.(¥¹ï8Ò²ùı´/
+C
+java:S1168"&Return an empty array instead of null.(¥¹ï8ä°ûı´/
+V	java:S106Ğ"9Replace this use of System.out or System.err by a logger.(ÍÍ½÷8ú•€Â¶/
