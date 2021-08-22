@@ -106,12 +106,12 @@ public class IsomorphicJudger {
         //图二同或矩阵
         th(typeArray, typeTongxin, typeTonghuo, n);
 
-        return getTransVertices(blockArray, blockTongxin, blockTonghuo, typeArray, typeYihuo, typeTonghuo, n, type.vertices);
+        return getTransVertices(blockArray, blockYihuo, blockTonghuo, typeArray, typeYihuo, typeTonghuo, n, type.vertices);
 
     }
 
 
-    public static Node[] getTransVertices(int[][] blockArray, int[][] blockTongxin, int[][] blockTonghuo,
+    public static Node[] getTransVertices(int[][] blockArray, int[][] blockYihuo, int[][] blockTonghuo,
                                           int[][] typeArray, int[][] typeYihuo, int[][] typeTonghuo, int n,
                                           Node[] typeVertices) {
         //定义定点模板
@@ -120,7 +120,7 @@ public class IsomorphicJudger {
             vertices[i] = new Node(typeVertices[i].name, typeVertices[i].color);
         }
         //用于替换的临时一维数组，存放p13
-        int[] tempBlockTongxin = new int[n];
+        int[] tempBlockYihuo = new int[n];
         //用于替换的临时一维数组，存放p23
         int[] tempTypeYihuo = new int[n];
         //用于替换的临时一维数组，存放p1
@@ -141,7 +141,7 @@ public class IsomorphicJudger {
 
             //首先进行行赋值给另外一个数组p13
             for (int j = 0; j < n; j++) {
-                tempBlockTongxin[j] = blockTongxin[firstRow][j];
+                tempBlockYihuo[j] = blockYihuo[firstRow][j];
             }
 
 
@@ -155,8 +155,8 @@ public class IsomorphicJudger {
                 tempBlockTonghuo[j] = blockTonghuo[firstRow][j];
             }
 
-            //tempBlockTongxin,p33,p44冒泡排序
-            bubbleSort(tempBlockTongxin, n);
+            //tempBlockYihuo,p33,p44冒泡排序
+            bubbleSort(tempBlockYihuo, n);
             bubbleSort(tempBlockArray, n);
             bubbleSort(tempBlockTonghuo, n);
 
@@ -188,7 +188,7 @@ public class IsomorphicJudger {
 
                 for (int col = 0; col < n; col++) {
 
-                    if (tempBlockTongxin[col] != tempTypeYihuo[col]) {
+                    if (tempBlockYihuo[col] != tempTypeYihuo[col]) {
                         if (nextRow == n - 1) {
                             System.out.println("不同构");
                             return null;
