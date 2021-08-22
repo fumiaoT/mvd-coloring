@@ -133,8 +133,8 @@ public class IsomorphicJudger {
         int[] tempTypeTonghuo = new int[n];
 
         int t;
-        int tt;//进行跳转判断
-        int ttt = 0;//进行跳转判断
+        int colNum;//进行跳转判断
+        int matchedRowNum = 0;//进行跳转判断
 
         //行行替换
         for (int firstRow = 0; firstRow < n; firstRow++) {
@@ -162,7 +162,7 @@ public class IsomorphicJudger {
 
             //开始进行比较,p12的每一行与p23的每一行进行比较
             for (int nextRow = firstRow; nextRow < n; nextRow++) {
-                tt = 0;
+                colNum = 0;
 
                 //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
@@ -188,107 +188,94 @@ public class IsomorphicJudger {
 
                 for (int col = 0; col < n; col++) {
 
-
                     if (tempBlockTongxin[col] != tempTypeYihuo[col]) {
+                        if (nextRow == n - 1) {
+                            System.out.println("不同构");
+                            return null;
+                        }
+                        break;
+                    }
+                    colNum = col;
 
+                    if (col != n - 1) {
+                        continue;
                     }
 
-                    if (tempBlockTongxin[col] == tempTypeYihuo[col]) {
-                        tt = col;
+                    //开始进行邻接矩阵对应位置比较
 
-
-                        if (col == n - 1)//也就是各个都相等,找到匹配
-                        {
-                            //开始进行邻接矩阵对应位置比较
-
-                            for (int b = 0; b < n; b++) {
-                                if (tempBlockArray[b] == tempTypeArray[b]) {
-                                    continue;
-                                } else if (b < n - 1) {
-                                    System.out.println("不同构");
-                                    return null;
-                                }
-                            }
-
-                            //开始进行同或矩阵
-
-                            for (int c = 0; c < n; c++) {
-                                if (tempBlockTonghuo[c] == tempTypeTonghuo[c]) {
-                                    continue;
-                                } else if (c < n - 1) {
-                                    System.out.println("不同构");
-                                    return null;
-                                }
-                            }
-
-                            ttt++;//表示成功匹配一行
-                            Node tempNode = vertices[firstRow];
-                            vertices[firstRow] = vertices[nextRow];
-                            vertices[nextRow] = tempNode;
-                            //进行行行转换p2
-                            for (int u1 = 0; u1 < n; u1++) {
-
-                                t = typeArray[firstRow][u1];
-                                typeArray[firstRow][u1] = typeArray[nextRow][u1];
-                                typeArray[nextRow][u1] = t;
-
-                            }
-
-                            for (int u11 = 0; u11 < n; u11++) {
-
-                                t = typeArray[u11][firstRow];
-                                typeArray[u11][firstRow] = typeArray[u11][nextRow];
-                                typeArray[u11][nextRow] = t;
-
-                            }
-
-                            //进行行行转换p23
-                            for (int u2 = 0; u2 < n; u2++) {
-
-                                t = typeYihuo[firstRow][u2];
-                                typeYihuo[firstRow][u2] = typeYihuo[nextRow][u2];
-                                typeYihuo[nextRow][u2] = t;
-
-                            }
-
-                            for (int u22 = 0; u22 < n; u22++) {
-
-                                t = typeYihuo[u22][firstRow];
-                                typeYihuo[u22][firstRow] = typeYihuo[u22][nextRow];
-                                typeYihuo[u22][nextRow] = t;
-
-                            }
-
-
-                            //进行行行转换p24
-                            for (int u3 = 0; u3 < n; u3++) {
-
-                                t = typeTonghuo[firstRow][u3];
-                                typeTonghuo[firstRow][u3] = typeTonghuo[nextRow][u3];
-                                typeTonghuo[nextRow][u3] = t;
-
-                            }
-
-                            for (int u33 = 0; u33 < n; u33++) {
-
-                                t = typeTonghuo[u33][firstRow];
-                                typeTonghuo[u33][firstRow] = typeTonghuo[u33][nextRow];
-                                typeTonghuo[u33][nextRow] = t;
-
-                            }
-
-                            break;
-
-                        } else {
+                    for (int b = 0; b < n; b++) {
+                        if (tempBlockArray[b] == tempTypeArray[b]) {
                             continue;
+                        } else if (b < n - 1) {
+                            System.out.println("不同构");
+                            return null;
                         }
                     }
-                    else if (nextRow == n - 1)//一直循环到最后都未找到匹配
-                    {
-                        System.out.println("不同构");
-                        return null;
-                    } else {
-                        break;
+
+                    //开始进行同或矩阵
+
+                    for (int c = 0; c < n; c++) {
+                        if (tempBlockTonghuo[c] == tempTypeTonghuo[c]) {
+                            continue;
+                        } else if (c < n - 1) {
+                            System.out.println("不同构");
+                            return null;
+                        }
+                    }
+
+                    matchedRowNum++;//表示成功匹配一行
+                    Node tempNode = vertices[firstRow];
+                    vertices[firstRow] = vertices[nextRow];
+                    vertices[nextRow] = tempNode;
+                    //进行 行行转换
+                    for (int u1 = 0; u1 < n; u1++) {
+
+                        t = typeArray[firstRow][u1];
+                        typeArray[firstRow][u1] = typeArray[nextRow][u1];
+                        typeArray[nextRow][u1] = t;
+
+                    }
+
+                    for (int u11 = 0; u11 < n; u11++) {
+
+                        t = typeArray[u11][firstRow];
+                        typeArray[u11][firstRow] = typeArray[u11][nextRow];
+                        typeArray[u11][nextRow] = t;
+
+                    }
+
+                    //进行行行转换p23
+                    for (int u2 = 0; u2 < n; u2++) {
+
+                        t = typeYihuo[firstRow][u2];
+                        typeYihuo[firstRow][u2] = typeYihuo[nextRow][u2];
+                        typeYihuo[nextRow][u2] = t;
+
+                    }
+
+                    for (int u22 = 0; u22 < n; u22++) {
+
+                        t = typeYihuo[u22][firstRow];
+                        typeYihuo[u22][firstRow] = typeYihuo[u22][nextRow];
+                        typeYihuo[u22][nextRow] = t;
+
+                    }
+
+
+                    //进行行行转换p24
+                    for (int u3 = 0; u3 < n; u3++) {
+
+                        t = typeTonghuo[firstRow][u3];
+                        typeTonghuo[firstRow][u3] = typeTonghuo[nextRow][u3];
+                        typeTonghuo[nextRow][u3] = t;
+
+                    }
+
+                    for (int u33 = 0; u33 < n; u33++) {
+
+                        t = typeTonghuo[u33][firstRow];
+                        typeTonghuo[u33][firstRow] = typeTonghuo[u33][nextRow];
+                        typeTonghuo[u33][nextRow] = t;
 
                     }
                 }
@@ -296,9 +283,9 @@ public class IsomorphicJudger {
 
                 //上面的匹配没有问题，则进行行替换
 
-                if (tt == n - 1) {
+                if (colNum == n - 1) {
 
-                    if (ttt == n) {
+                    if (matchedRowNum == n) {
                         System.out.println("同构");
                         return vertices;
                     } else {
