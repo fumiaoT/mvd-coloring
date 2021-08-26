@@ -113,7 +113,7 @@ public class IsomorphicJudger {
 
     public static Node[] getTransVertices(int[][] blockArray, int[][] blockYihuo, int[][] blockTonghuo,
                                           int[][] typeArray, int[][] typeYihuo, int[][] typeTonghuo, int n,
-                                          Node[] typeVertices, int matchedRowNum, int firstRowBegin) {
+                                          Node[] typeVertices, int matchedRowNum, int blockRowBegin) {
 
         int[][] typeArrayCopy = new int[n][n];
         for (int i = 0; i < n; i++) {
@@ -142,7 +142,7 @@ public class IsomorphicJudger {
             vertices[i] = new Node(typeVertices[i].name, typeVertices[i].color);
         }
         //用于替换的临时一维数组，存放p13
-        int[] tempBlockTongxin = new int[n];
+        int[] tempBlockYihuo = new int[n];
         //用于替换的临时一维数组，存放p23
         int[] tempTypeYihuo = new int[n];
         //用于替换的临时一维数组，存放p1
@@ -158,46 +158,47 @@ public class IsomorphicJudger {
         int colNum;//进行跳转判断
 
         //行行替换
-        for (int firstRow = firstRowBegin; firstRow < n; firstRow++) {
+        for (int blockRow = blockRowBegin; blockRow < n; blockRow++) {
+
 
             //首先进行行赋值给另外一个数组p13
             for (int j = 0; j < n; j++) {
-                tempBlockTongxin[j] = blockYihuo[firstRow][j];
+                tempBlockYihuo[j] = blockYihuo[blockRow][j];
             }
 
 
             //首先进行行赋值给另外一个数组p1
             for (int j = 0; j < n; j++) {
-                tempBlockArray[j] = blockArray[firstRow][j];
+                tempBlockArray[j] = blockArray[blockRow][j];
             }
 
             //首先进行行赋值给另外一个数组
             for (int j = 0; j < n; j++) {
-                tempBlockTonghuo[j] = blockTonghuo[firstRow][j];
+                tempBlockTonghuo[j] = blockTonghuo[blockRow][j];
             }
 
-            //tempBlockTongxin,p33,p44冒泡排序
-            bubbleSort(tempBlockTongxin, n);
+            //tempBlockYihuo,p33,p44冒泡排序
+            bubbleSort(tempBlockYihuo, n);
             bubbleSort(tempBlockArray, n);
             bubbleSort(tempBlockTonghuo, n);
 
             //开始进行比较,p12的每一行与p23的每一行进行比较
-            for (int nextRow = firstRow; nextRow < n; nextRow++) {
+            for (int typeRow = blockRow; typeRow < n; typeRow++) {
                 colNum = 0;
 
                 //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
-                    tempTypeYihuo[j] = typeYihuo[nextRow][j];
+                    tempTypeYihuo[j] = typeYihuo[typeRow][j];
                 }
 
                 //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
-                    tempTypeArray[j] = typeArray[nextRow][j];
+                    tempTypeArray[j] = typeArray[typeRow][j];
                 }
 
                 //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
-                    tempTypeTonghuo[j] = typeTonghuo[nextRow][j];
+                    tempTypeTonghuo[j] = typeTonghuo[typeRow][j];
                 }
 
                 //p88,p55,p66冒泡排序
@@ -209,9 +210,9 @@ public class IsomorphicJudger {
 
                 for (int col = 0; col < n; col++) {
 
-                    if (tempBlockTongxin[col] != tempTypeYihuo[col]) {
-                        if (nextRow == n - 1) {
-                            System.out.println("不同构");
+                    if (tempBlockYihuo[col] != tempTypeYihuo[col]) {
+                        if (typeRow == n - 1) {
+                            System.out.println("不同构,block:"+blockRow+"type:"+typeRow);
                             return null;
                         }
                         break;
@@ -228,7 +229,7 @@ public class IsomorphicJudger {
                         if (tempBlockArray[b] == tempTypeArray[b]) {
                             continue;
                         } else if (b < n - 1) {
-                            System.out.println("不同构");
+                            System.out.println("不同构,block:"+blockRow+"type:"+typeRow);
                             return null;
                         }
                     }
@@ -239,46 +240,46 @@ public class IsomorphicJudger {
                         if (tempBlockTonghuo[c] == tempTypeTonghuo[c]) {
                             continue;
                         } else if (c < n - 1) {
-                            System.out.println("不同构");
+                            System.out.println("不同构,block:"+blockRow+"type:"+typeRow);
                             return null;
                         }
                     }
 
                     matchedRowNum++;//表示成功匹配一行
-                    Node tempNode = vertices[firstRow];
-                    vertices[firstRow] = vertices[nextRow];
-                    vertices[nextRow] = tempNode;
+                    Node tempNode = vertices[blockRow];
+                    vertices[blockRow] = vertices[typeRow];
+                    vertices[typeRow] = tempNode;
                     //进行 行行转换
                     for (int c = 0; c < n; c++) {
 
-                        t = typeArrayCopy[firstRow][c];
-                        typeArrayCopy[firstRow][c] = typeArrayCopy[nextRow][c];
-                        typeArrayCopy[nextRow][c] = t;
+                        t = typeArrayCopy[blockRow][c];
+                        typeArrayCopy[blockRow][c] = typeArrayCopy[typeRow][c];
+                        typeArrayCopy[typeRow][c] = t;
 
                     }
 
                     for (int r = 0; r < n; r++) {
 
-                        t = typeArrayCopy[r][firstRow];
-                        typeArrayCopy[r][firstRow] = typeArrayCopy[r][nextRow];
-                        typeArrayCopy[r][nextRow] = t;
+                        t = typeArrayCopy[r][blockRow];
+                        typeArrayCopy[r][blockRow] = typeArrayCopy[r][typeRow];
+                        typeArrayCopy[r][typeRow] = t;
 
                     }
 
                     //进行行行转换p23
                     for (int c = 0; c < n; c++) {
 
-                        t = typeYihuoCopy[firstRow][c];
-                        typeYihuoCopy[firstRow][c] = typeYihuoCopy[nextRow][c];
-                        typeYihuoCopy[nextRow][c] = t;
+                        t = typeYihuoCopy[blockRow][c];
+                        typeYihuoCopy[blockRow][c] = typeYihuoCopy[typeRow][c];
+                        typeYihuoCopy[typeRow][c] = t;
 
                     }
 
                     for (int r = 0; r < n; r++) {
 
-                        t = typeYihuoCopy[r][firstRow];
-                        typeYihuoCopy[r][firstRow] = typeYihuoCopy[r][nextRow];
-                        typeYihuoCopy[r][nextRow] = t;
+                        t = typeYihuoCopy[r][blockRow];
+                        typeYihuoCopy[r][blockRow] = typeYihuoCopy[r][typeRow];
+                        typeYihuoCopy[r][typeRow] = t;
 
                     }
 
@@ -286,17 +287,17 @@ public class IsomorphicJudger {
                     //进行行行转换p24
                     for (int c = 0; c < n; c++) {
 
-                        t = typeTonghuoCopy[firstRow][c];
-                        typeTonghuoCopy[firstRow][c] = typeTonghuoCopy[nextRow][c];
-                        typeTonghuoCopy[nextRow][c] = t;
+                        t = typeTonghuoCopy[blockRow][c];
+                        typeTonghuoCopy[blockRow][c] = typeTonghuoCopy[typeRow][c];
+                        typeTonghuoCopy[typeRow][c] = t;
 
                     }
 
                     for (int r = 0; r < n; r++) {
 
-                        t = typeTonghuoCopy[r][firstRow];
-                        typeTonghuoCopy[r][firstRow] = typeTonghuoCopy[r][nextRow];
-                        typeTonghuoCopy[r][nextRow] = t;
+                        t = typeTonghuoCopy[r][blockRow];
+                        typeTonghuoCopy[r][blockRow] = typeTonghuoCopy[r][typeRow];
+                        typeTonghuoCopy[r][typeRow] = t;
 
                     }
                 }
@@ -304,22 +305,29 @@ public class IsomorphicJudger {
                 //上面的匹配没有问题，则进行行替换
 
                 if (colNum == n - 1) {
-//                    Node[] result = getTransVertices(blockArray, blockYihuo, blockTonghuo, typeArrayCopy, typeYihuoCopy, typeTonghuoCopy, n, vertices, matchedRowNum, firstRow + 1);
-//
-//                    if (result != null) {
-//                        System.out.println("同构");
-//                        return result;
-//                    }
+                    Node[] result = getTransVertices(blockArray, blockYihuo, blockTonghuo, typeArrayCopy, typeYihuoCopy, typeTonghuoCopy, n, vertices, matchedRowNum, blockRow + 1);
+                    if (blockRow == 4) {
+                        System.out.println();
+                    }
+                    if (result != null) {
+                        System.out.println("同构,block:"+blockRow+"type:"+typeRow);
+                        return result;
+                    }
+
 
                     if (matchedRowNum == n) {
-                        if (isMaticxSame(blockArray, typeArrayCopy)) {
-                            System.out.println("同构");
+                        if (isMaticxSame(blockArray, typeArray)) {
+                            System.out.println("同构,block:"+blockRow+"type:"+typeRow);
                             return vertices;
                         }
                         return null;
                     }
 
-                    break;    //成功跳出循环判断下一行
+                    for (int i = 0; i < vertices.length; i++) {
+                        vertices[i] = new Node(typeVertices[i].name, typeVertices[i].color);
+                    }
+                    matchedRowNum = matchedRowNum - 1;
+                    //成功跳出循环判断下一行
 
                 }
 
