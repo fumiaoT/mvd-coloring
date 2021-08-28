@@ -12,7 +12,7 @@ import java.util.List;
 public class GraphContext {
 
     public static void main(String[] args) {
-        String[] verx = new String[]{"A", "B", "C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q"};
+        String[] verx = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"};
         int[][] edges = new int[][]{
 
                 {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
@@ -36,6 +36,7 @@ public class GraphContext {
 
         BlockAndCutVerticesBuilder blockAndCutVerticesBuilder = new BlockAndCutVerticesBuilder();
         Edge[][] matrixEdges = blockAndCutVerticesBuilder.create(verx, edges);
+        System.out.println("### Input Graph ###");
         blockAndCutVerticesBuilder.printGraph(matrixEdges);
 
         //use tarjan algorithm to calculate cutVertices and blocks
@@ -51,6 +52,7 @@ public class GraphContext {
         mvdColorMarker.markBlocks(graphs);
 
         Node[] vertices = blockAndCutVerticesBuilder.vertices;
+        System.out.println("### Coloring Vertices Results ###");
         for (Node node : vertices) {
             System.out.print(node);
         }

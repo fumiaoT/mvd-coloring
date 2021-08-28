@@ -1,6 +1,7 @@
 import Elements.Edge;
 import Elements.MvdGraph;
 import Elements.Node;
+import Utils.PrintUtils;
 import Utils.ReadGraphUtils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class MvdColorMarker {
     public int colorCount = 0;
 
 
+    //load the template coloring graphs in the files
     static {
         GRAPHS.add(ReadGraphUtils.readFiles("graph_K4-e.txt"));
 
@@ -64,6 +66,7 @@ public class MvdColorMarker {
     }
 
     private void findTypeAndColoring(MvdGraph block) {
+        System.out.println("### Isomorphic Relationship ###");
         for (MvdGraph type : GRAPHS) {
             findTypeAndColoring(block, type);
         }
@@ -80,31 +83,26 @@ public class MvdColorMarker {
             //染色 后面的颜色会覆盖前面
             graph.vertices[i].color = template[i].color + colorCount;
         }
-        //todo
+
         colorCount += graph.vertices.length;
         graph.template = template;
+        printRelationships(graph,type,template);
+
 
 
     }
 
-
-    private static MvdGraph createGraph(String[] vertexs, int[][] edges) {
-
-
-        Node[] vertices = new Node[vertexs.length];
-        for (int i = 0; i < vertexs.length; i++) {
-
-            vertices[i] = new Node(vertexs[i].split(":")[0], Integer.parseInt(vertexs[i].split(":")[1]));
-        }
-
-        Edge[][] graphEdges = new Edge[edges.length][edges[0].length];
-        for (int row = 0; row < edges.length; row++) {
-            for (int col = 0; col < edges[0].length; col++) {
-                graphEdges[row][col] = new Edge(edges[row][col]);
-            }
-        }
-        return new MvdGraph(vertices, graphEdges);
+    private void printRelationships(MvdGraph graph, MvdGraph type,Node[] template) {
+        System.out.println("current block:");
+        PrintUtils.printVerticesArray(graph.vertices);
+        System.out.println("isomorphic block before elementary operations:");
+        PrintUtils.printVerticesArray(type.vertices);
+        PrintUtils.printGraph(type.edges);
+        System.out.println("isomorphic block: after elementary operations:");
+        PrintUtils.printVerticesArray(template);
+        System.out.println();
     }
+
 
     public static void main(String[] args) {
 
