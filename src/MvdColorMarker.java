@@ -1,11 +1,15 @@
+import Elements.Edge;
+import Elements.MvdGraph;
+import Elements.Node;
+import Utils.ReadGraphUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author: yuanpeng
  * @create: 2021-08-15 18:37
  * @program: tarjan-java
- * @description: mvd染色
+ * @description: graph used to mvd coloring
  */
 public class MvdColorMarker {
 
@@ -15,83 +19,15 @@ public class MvdColorMarker {
 
 
     static {
-        GRAPHS.add(createGraph(
-                new String[]{"A:2", "B:1", "C:1", "D:3"},
-                new int[][]{
-                        {0, 1, 1, 0},
-                        {1, 0, 1, 1},
-                        {1, 1, 0, 1},
-                        {0, 1, 1, 0}
-                }));
+        GRAPHS.add(ReadGraphUtils.readFiles("graph_K4-e.txt"));
 
-        GRAPHS.add(createGraph(
-                new String[]{"A:1", "B:2", "C:1", "D:2"},
-                new int[][]{
-                        {0, 1, 0, 1},
-                        {1, 0, 1, 0},
-                        {0, 1, 0, 1},
-                        {1, 0, 1, 0}
-                }));
+        GRAPHS.add(ReadGraphUtils.readFiles("graph_C4.txt"));
 
-        GRAPHS.add(createGraph(
-                new String[]{"A:1", "B:2"},
-                new int[][]{
-                        {0, 1},
-                        {1, 0,}
-                }));
+        GRAPHS.add(ReadGraphUtils.readFiles("graph_K2.txt"));
 
-        GRAPHS.add(createGraph(
-                new String[]{"A:1", "B:2", "C:1", "D:1", "E:2", "F:2"},
-                new int[][]{
-                        {0, 1, 0, 0, 1, 1},
-                        {1, 0, 1, 0, 0, 0},
-                        {0, 1, 0, 1, 0, 1},
-                        {0, 0, 1, 0, 1, 0},
-                        {1, 0, 0, 1, 0, 0},
-                        {1, 0, 1, 0, 0, 0},
-                }));
+        GRAPHS.add(ReadGraphUtils.readFiles("graph_9Vertex-9.txt"));
 
-        GRAPHS.add(createGraph(
-                new String[]{"A:1", "B:2", "C:1", "D:2", "E:2", "F:1", "G:2", "H:1", "I:2"},
-                new int[][]{
-                        {0, 1, 0, 0, 0, 0, 0, 0, 1},
-                        {1, 0, 1, 0, 0, 0, 0, 0, 0},
-                        {0, 1, 0, 1, 0, 0, 1, 1, 0},
-                        {0, 0, 1, 0, 1, 0, 0, 0, 0},
-                        {0, 0, 0, 1, 0, 1, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 1, 0, 1},
-                        {0, 0, 1, 0, 0, 1, 0, 0, 0},
-                        {0, 0, 1, 0, 0, 0, 0, 0, 1},
-                        {1, 0, 0, 0, 0, 1, 0, 1, 0}
-                }));
-
-        GRAPHS.add(createGraph(
-                new String[]{"a:1", "b:2", "c:1", "d:2", "e:1", "f:2", "g:1", "h:1", "i:2"},
-                new int[][]{
-                        {0, 1, 0, 0, 0, 1, 0, 0, 0},
-                        {1, 0, 1, 0, 0, 0, 1, 0, 0},
-                        {0, 1, 0, 1, 0, 0, 0, 1, 1},
-                        {0, 0, 1, 0, 1, 0, 0, 0, 0},
-                        {0, 0, 0, 1, 0, 1, 0, 0, 1},
-                        {1, 0, 0, 0, 1, 0, 1, 1, 0},
-                        {0, 1, 0, 0, 0, 1, 0, 0, 0},
-                        {0, 0, 1, 0, 0, 1, 0, 0, 0},
-                        {0, 0, 1, 0, 1, 0, 0, 0, 0}
-                }));
-
-        GRAPHS.add(createGraph(
-                new String[]{"a:1", "b:2", "c:1", "d:2", "e:1", "f:2", "g:2", "h:1", "i:2"},
-                new int[][]{
-                        {0, 1, 0, 0, 0, 1, 1, 0, 1},
-                        {1, 0, 1, 0, 0, 0, 0, 0, 0},
-                        {0, 1, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 1, 0, 1, 0, 0, 1, 0},
-                        {0, 0, 0, 1, 0, 1, 0, 0, 0},
-                        {1, 0, 0, 0, 1, 0, 0, 0, 0},
-                        {1, 0, 0, 0, 0, 0, 0, 1, 0},
-                        {0, 0, 0, 1, 0, 0, 1, 0, 1},
-                        {1, 0, 0, 0, 0, 0, 0, 1, 0}
-                }));
+        GRAPHS.add(ReadGraphUtils.readFiles("graph_9Vertex-11.txt"));
     }
 
 
@@ -153,6 +89,8 @@ public class MvdColorMarker {
 
 
     private static MvdGraph createGraph(String[] vertexs, int[][] edges) {
+
+
         Node[] vertices = new Node[vertexs.length];
         for (int i = 0; i < vertexs.length; i++) {
 

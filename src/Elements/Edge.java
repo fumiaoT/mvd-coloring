@@ -1,5 +1,6 @@
+package Elements;
+
 /**
- * @author: yuanpeng
  * @create: 2021-08-02 01:41
  * @program: tarjan-java
  * @description: 表示边

@@ -1,10 +1,11 @@
+package Elements;
+
 import java.util.Objects;
 
 /**
- * @author: yuanpeng
  * @create: 2021-08-01 22:18
  * @program: tarjan-java
- * @description: 图中单一节点
+ * @description: nodes that compose the graph
  */
 public class Node {
 
@@ -37,9 +38,9 @@ public class Node {
     @Override
     public String toString() {
         if (color == null) {
-            return "Node{" + "'" + name + '\'' + '}' + "\t";
+            return "{" + "'" + name + '\'' + '}' ;
         }
-        return "Node{" + "'" + name + '\'' + ":" + color + '}' + "\t";
+        return "{" + "'" + name + '\'' + ":" + color + '}' + " ";
     }
 
     @Override

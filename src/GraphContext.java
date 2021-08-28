@@ -1,7 +1,10 @@
+import Elements.Edge;
+import Elements.MvdGraph;
+import Elements.Node;
+
 import java.util.List;
 
 /**
- * @author: yuanpeng
  * @create: 2021-08-01 22:23
  * @program: tarjan-java
  * @description: 计算割点和块的运行类
@@ -11,30 +14,7 @@ public class GraphContext {
     public static void main(String[] args) {
         String[] verx = new String[]{"A", "B", "C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q"};
         int[][] edges = new int[][]{
-//                {0, 0, 1, 1, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 1, 1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 1, 0, 0, 0, 0},
-//                {1, 1, 0, 0, 0, 0, 0, 0, 1},
-//                {0, 1, 1, 0, 0, 0, 1, 1, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 1, 1},
-//                {0, 0, 0, 0, 1, 0, 0, 0, 1},
-//                {0, 0, 0, 0, 1, 1, 0, 0, 0},
-//                {0, 0, 0, 1, 0, 1, 1, 0, 0}
-//                {0,1,0,1},
-//                {1,0,1,0},
-//                {0,1,0,1},
-//                {1,0,1,0}
 
-//                {0,1,0,0,1,1,0,0,0,0 },
-//                {1,0,1,0,0,0,0,0,0,0 },
-//                {0,1,0,1,0,0,0,0,0,0 },
-//                {0,0,1,0,1,1,0,0,0,0 },
-//                {1,0,0,1,0,0,1,0,0,0 },
-//                {1,0,0,1,0,0,0,0,0,0 },
-//                {0,0,0,0,1,0,0,1,0,1 },
-//                {0,0,0,0,0,0,1,0,1,0 },
-//                {0,0,0,0,0,0,0,1,0,1 },
-//                {0,0,0,0,0,0,1,0,1,0 }
                 {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
                 {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0},
@@ -54,23 +34,23 @@ public class GraphContext {
                 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}
         };
 
-        GraphMatrixBuilder graphMatrixBuilder = new GraphMatrixBuilder();
-        Edge[][] matrixEdges = graphMatrixBuilder.create(verx, edges);
-        System.out.println("初始化后的图");
-        graphMatrixBuilder.printGraph(matrixEdges);
+        BlockAndCutVerticesBuilder blockAndCutVerticesBuilder = new BlockAndCutVerticesBuilder();
+        Edge[][] matrixEdges = blockAndCutVerticesBuilder.create(verx, edges);
+        blockAndCutVerticesBuilder.printGraph(matrixEdges);
 
-        //定义初始化计算的节点
-        graphMatrixBuilder.makeDFSTarjan(0);
-        //打印结果
-        graphMatrixBuilder.printResult();
-        graphMatrixBuilder.blocksEdges.forEach(graphMatrixBuilder::printGraph);
+        //use tarjan algorithm to calculate cutVertices and blocks
+        blockAndCutVerticesBuilder.makeDFSTarjan(0);
+        //print cutVertices, blocks and Adjacency matrix
+        blockAndCutVerticesBuilder.printResult();
+        System.out.println();
 
-        List<MvdGraph> graphs = graphMatrixBuilder.createMvdGraph();
-        //mvd 染色
+
+        List<MvdGraph> graphs = blockAndCutVerticesBuilder.createMvdGraph();
+        //mvd coloring
         MvdColorMarker mvdColorMarker = new MvdColorMarker();
         mvdColorMarker.markBlocks(graphs);
 
-        Node[] vertices = graphMatrixBuilder.vertices;
+        Node[] vertices = blockAndCutVerticesBuilder.vertices;
         for (Node node : vertices) {
             System.out.print(node);
         }

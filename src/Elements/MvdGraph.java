@@ -1,7 +1,6 @@
-import java.util.Arrays;
+package Elements;
 
 /**
- * @author: yuanpeng
  * @create: 2021-08-15 19:20
  * @program: tarjan-java
  * @description: 用于mvd染色的图
@@ -22,7 +21,7 @@ public class MvdGraph {
     }
 
     public void print() {
-        for (Node node: vertices) {
+        for (Node node : vertices) {
             System.out.print(node);
         }
         System.out.println();

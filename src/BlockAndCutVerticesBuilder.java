@@ -1,3 +1,7 @@
+import Elements.Edge;
+import Elements.MvdGraph;
+import Elements.Node;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -5,12 +9,12 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- * @author: yuanpeng
  * @create: 2021-08-01 22:17
  * @program: tarjan-java
  * @description: 整体图像表示
  */
-public class GraphMatrixBuilder {
+
+public class BlockAndCutVerticesBuilder {
 
 
     public Node[] vertices;
@@ -60,12 +64,20 @@ public class GraphMatrixBuilder {
             }
             System.out.println();
         }
-        System.out.println("----------------");
+
     }
 
     public void printResult() {
+        System.out.println("cutVertex of Input Graph:");
         System.out.println("cutVerticesSet:" + cutVerticesSet);
-        System.out.println("block:" + block);
+        System.out.println();
+        System.out.println("Block generated from Graph:");
+        for (int i =0 ; i< block.size();i++) {
+            System.out.println("Block num " + (i+1));
+            System.out.println( block.get(i));
+            printGraph(blocksEdges.get(i));
+        }
+
     }
 
     public void makeDFSTarjan(int activeNodeIndex) {

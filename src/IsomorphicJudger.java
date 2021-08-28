@@ -1,5 +1,7 @@
+import Elements.MvdGraph;
+import Elements.Node;
+
 /**
- * @author: yuanpeng
  * @create: 2021-08-16 23:20
  * @program: tarjan-java
  * @description: 使用同型矩阵方法判断是否同构的方法类
@@ -212,7 +214,6 @@ public class IsomorphicJudger {
 
                     if (tempBlockYihuo[col] != tempTypeYihuo[col]) {
                         if (typeRow == n - 1) {
-                            System.out.println("不同构,block:"+blockRow+"type:"+typeRow);
                             return null;
                         }
                         break;
@@ -229,7 +230,6 @@ public class IsomorphicJudger {
                         if (tempBlockArray[b] == tempTypeArray[b]) {
                             continue;
                         } else if (b < n - 1) {
-                            System.out.println("不同构,block:"+blockRow+"type:"+typeRow);
                             return null;
                         }
                     }
@@ -240,7 +240,6 @@ public class IsomorphicJudger {
                         if (tempBlockTonghuo[c] == tempTypeTonghuo[c]) {
                             continue;
                         } else if (c < n - 1) {
-                            System.out.println("不同构,block:"+blockRow+"type:"+typeRow);
                             return null;
                         }
                     }
@@ -306,18 +305,13 @@ public class IsomorphicJudger {
 
                 if (colNum == n - 1) {
                     Node[] result = getTransVertices(blockArray, blockYihuo, blockTonghuo, typeArrayCopy, typeYihuoCopy, typeTonghuoCopy, n, vertices, matchedRowNum, blockRow + 1);
-                    if (blockRow == 4) {
-                        System.out.println();
-                    }
                     if (result != null) {
-                        System.out.println("同构,block:"+blockRow+"type:"+typeRow);
                         return result;
                     }
 
 
                     if (matchedRowNum == n) {
                         if (isMaticxSame(blockArray, typeArray)) {
-                            System.out.println("同构,block:"+blockRow+"type:"+typeRow);
                             return vertices;
                         }
                         return null;
@@ -327,7 +321,7 @@ public class IsomorphicJudger {
                         vertices[i] = new Node(typeVertices[i].name, typeVertices[i].color);
                     }
                     matchedRowNum = matchedRowNum - 1;
-                    //成功跳出循环判断下一行
+                    //continue
 
                 }
 
