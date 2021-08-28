@@ -1,6 +1,7 @@
 import Elements.Edge;
 import Elements.MvdGraph;
 import Elements.Node;
+import Utils.PrintUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -68,14 +69,15 @@ public class BlockAndCutVerticesBuilder {
     }
 
     public void printResult() {
-        System.out.println("cutVertex of Input Graph:");
+        System.out.println("### CutVertices and Blocks  ###");
+        System.out.println("cutVertices of Input Graph:");
         System.out.println("cutVerticesSet:" + cutVerticesSet);
         System.out.println();
         System.out.println("Block generated from Graph:");
-        for (int i =0 ; i< block.size();i++) {
-            System.out.println("Block num " + (i+1));
-            System.out.println( block.get(i));
-            printGraph(blocksEdges.get(i));
+        for (int i = 0; i < block.size(); i++) {
+            System.out.println("Block num " + (i + 1));
+            System.out.println(block.get(i));
+            PrintUtils.printGraph(blocksEdges.get(i));
         }
 
     }
