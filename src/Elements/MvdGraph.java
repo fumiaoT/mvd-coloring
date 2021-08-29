@@ -11,7 +11,7 @@ public class MvdGraph {
 
     public Node[] vertices;
 
-    // record the colored vertices responding to vertices
+    //record the colored vertices corresponding to vertices
     public Node[] template;
 
 

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @create: 2021-08-01 22:23
  * @program: tarjan-java
- * @description: 计算割点和块的运行类
+ * @description: Running context of the entire program
  */
 public class GraphContext {
 

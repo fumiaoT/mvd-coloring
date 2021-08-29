@@ -12,7 +12,7 @@ import java.util.Stack;
 /**
  * @create: 2021-08-01 22:17
  * @program: tarjan-java
- * @description: 整体图像表示
+ * @description: to calculate cut vertices and blocks
  */
 
 public class BlockAndCutVerticesBuilder {
@@ -87,9 +87,9 @@ public class BlockAndCutVerticesBuilder {
         vertices[activeNodeIndex].depth = 1;
         nodesStack.push(vertices[activeNodeIndex]);
         root = activeNodeIndex;
-        //计算割点与块
+        //calculate the cut vertices and blocks
         DFSTarjan(activeNodeIndex);
-        //计算块的邻接矩阵
+        //calculate the blocks' adjacency matrices
         cutBlocksEdges();
 
 
