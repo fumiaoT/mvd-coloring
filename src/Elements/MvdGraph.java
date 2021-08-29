@@ -11,7 +11,7 @@ public class MvdGraph {
 
     public Node[] vertices;
 
-    //模板块记录的染色点数组
+    //record the colored vertices corresponding to vertices
     public Node[] template;
 
 

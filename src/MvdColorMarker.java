@@ -80,7 +80,7 @@ public class MvdColorMarker {
 
 
         for (int i = 0; i < graph.vertices.length; i++) {
-            //染色 后面的颜色会覆盖前面
+            //coloring the vertices
             graph.vertices[i].color = template[i].color + colorCount;
         }
 
@@ -104,8 +104,4 @@ public class MvdColorMarker {
     }
 
 
-    public static void main(String[] args) {
-
-        GRAPHS.forEach(MvdGraph::print);
-    }
 }

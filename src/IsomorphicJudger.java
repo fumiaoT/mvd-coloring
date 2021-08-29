@@ -4,7 +4,9 @@ import Elements.Node;
 /**
  * @create: 2021-08-16 23:20
  * @program: tarjan-java
- * @description: 使用同型矩阵方法判断是否同构的方法类
+ * @description:
+ * utilize elementary operations to judge the isomorphic graphs .
+ * Return the colored vertices corresponding each blocks
  */
 public class IsomorphicJudger {
 
@@ -24,53 +26,50 @@ public class IsomorphicJudger {
 
         int n = block.vertices.length;
 
+        //block adjacency matrix
         int[][] blockArray = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
             blockArray[i1] = new int[n];
         }
 
-        //图一同型矩阵
-
+        // block 01 adjacency matrix
         int[][] blockTongxin = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
             blockTongxin[i1] = new int[n];
         }
 
-        //图一行异或矩阵
-
-
+        //block XOR matrix
         int[][] blockYihuo = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
             blockYihuo[i1] = new int[n];
         }
 
-        //图一行同或矩阵
+        //block XNOR matrix
         int[][] blockTonghuo = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
             blockTonghuo[i1] = new int[n];
         }
 
-        //图二邻接矩阵数组
+        //type adjacency matrix
         int[][] typeArray = new int[n][n];
         for (int i2 = 0; i2 < n; i2++) {
             typeArray[i2] = new int[n];
         }
 
-        //图二同型矩阵
-
+        // type 01 adjacency matrix
         int[][] typeTongxin = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
             typeTongxin[i1] = new int[n];
         }
 
-        //图二行异或矩阵
+        //block XOR matrix
 
         int[][] typeYihuo = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
             typeYihuo[i1] = new int[n];
         }
 
-        //图二行同或矩阵
+        //block XNOR matrix
 
         int[][] typeTonghuo = new int[n][n];
         for (int i1 = 0; i1 < n; i1++) {
@@ -89,24 +88,18 @@ public class IsomorphicJudger {
             }
         }
 
-        //图一同型矩阵
-        tx(blockArray, blockTongxin, n);
+        oneZero(blockArray, blockTongxin, n);
 
-        //图一异或矩阵
-        yh(blockArray, blockTongxin, blockYihuo, n);
+        xor(blockArray, blockTongxin, blockYihuo, n);
 
-        //图一同或矩阵
-        th(blockArray, blockTongxin, blockTonghuo, n);
+        xnor(blockArray, blockTongxin, blockTonghuo, n);
 
 
-        //图二同型矩阵
-        tx(typeArray, typeTongxin, n);
+        oneZero(typeArray, typeTongxin, n);
 
-        //图二异或矩阵
-        yh(typeArray, typeTongxin, typeYihuo, n);
+        xor(typeArray, typeTongxin, typeYihuo, n);
 
-        //图二同或矩阵
-        th(typeArray, typeTongxin, typeTonghuo, n);
+        xnor(typeArray, typeTongxin, typeTonghuo, n);
 
         return getTransVertices(blockArray, blockYihuo, blockTonghuo, typeArray, typeYihuo, typeTonghuo, n, type.vertices, 0, 0);
 
@@ -138,80 +131,73 @@ public class IsomorphicJudger {
             }
         }
 
-        //定义定点模板
+        //colored vertices template
         Node[] vertices = new Node[n];
         for (int i = 0; i < vertices.length; i++) {
             vertices[i] = new Node(typeVertices[i].name, typeVertices[i].color);
         }
-        //用于替换的临时一维数组，存放p13
+        //template array to store data
         int[] tempBlockYihuo = new int[n];
-        //用于替换的临时一维数组，存放p23
+        //template array to store data
         int[] tempTypeYihuo = new int[n];
-        //用于替换的临时一维数组，存放p1
+        //template array to store data
         int[] tempBlockArray = new int[n];
-        //用于替换的临时一维数组，存放p14
+        //template array to store data
         int[] tempBlockTonghuo = new int[n];
-        //用于替换的临时一维数组，存放p2
+        //template array to store data
         int[] tempTypeArray = new int[n];
-        //用于替换的临时一维数组，存放p24
+        //template array to store data
         int[] tempTypeTonghuo = new int[n];
 
         int t;
-        int colNum;//进行跳转判断
+        int colNum;
 
-        //行行替换
+
         for (int blockRow = blockRowBegin; blockRow < n; blockRow++) {
 
 
-            //首先进行行赋值给另外一个数组p13
             for (int j = 0; j < n; j++) {
                 tempBlockYihuo[j] = blockYihuo[blockRow][j];
             }
 
 
-            //首先进行行赋值给另外一个数组p1
             for (int j = 0; j < n; j++) {
                 tempBlockArray[j] = blockArray[blockRow][j];
             }
 
-            //首先进行行赋值给另外一个数组
             for (int j = 0; j < n; j++) {
                 tempBlockTonghuo[j] = blockTonghuo[blockRow][j];
             }
 
-            //tempBlockYihuo,p33,p44冒泡排序
+            //bubble sort preprocessing
             bubbleSort(tempBlockYihuo, n);
             bubbleSort(tempBlockArray, n);
             bubbleSort(tempBlockTonghuo, n);
 
-            //开始进行比较,p12的每一行与p23的每一行进行比较
             for (int typeRow = blockRow; typeRow < n; typeRow++) {
                 colNum = 0;
 
-                //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
                     tempTypeYihuo[j] = typeYihuo[typeRow][j];
                 }
 
-                //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
                     tempTypeArray[j] = typeArray[typeRow][j];
                 }
 
-                //首先进行行赋值给另外一个数组
                 for (int j = 0; j < n; j++) {
                     tempTypeTonghuo[j] = typeTonghuo[typeRow][j];
                 }
 
-                //p88,p55,p66冒泡排序
                 bubbleSort(tempTypeYihuo, n);
                 bubbleSort(tempTypeArray, n);
                 bubbleSort(tempTypeTonghuo, n);
 
-                //开始比较
+                //begin to compare
 
                 for (int col = 0; col < n; col++) {
 
+                    //compare the XOR matrix
                     if (tempBlockYihuo[col] != tempTypeYihuo[col]) {
                         if (typeRow == n - 1) {
                             return null;
@@ -224,8 +210,7 @@ public class IsomorphicJudger {
                         continue;
                     }
 
-                    //开始进行邻接矩阵对应位置比较
-
+                    //compare the adjacency matrix
                     for (int b = 0; b < n; b++) {
                         if (tempBlockArray[b] == tempTypeArray[b]) {
                             continue;
@@ -234,8 +219,7 @@ public class IsomorphicJudger {
                         }
                     }
 
-                    //开始进行同或矩阵
-
+                    //compare the XNOR matrix
                     for (int c = 0; c < n; c++) {
                         if (tempBlockTonghuo[c] == tempTypeTonghuo[c]) {
                             continue;
@@ -244,11 +228,11 @@ public class IsomorphicJudger {
                         }
                     }
 
-                    matchedRowNum++;//表示成功匹配一行
+                    matchedRowNum++;//two rows match
                     Node tempNode = vertices[blockRow];
                     vertices[blockRow] = vertices[typeRow];
                     vertices[typeRow] = tempNode;
-                    //进行 行行转换
+                    //elementary operations: switch adjacency cols
                     for (int c = 0; c < n; c++) {
 
                         t = typeArrayCopy[blockRow][c];
@@ -257,6 +241,7 @@ public class IsomorphicJudger {
 
                     }
 
+                    //elementary operations: switch adjacency rows
                     for (int r = 0; r < n; r++) {
 
                         t = typeArrayCopy[r][blockRow];
@@ -265,7 +250,7 @@ public class IsomorphicJudger {
 
                     }
 
-                    //进行行行转换p23
+                    //elementary operations: switch XOR cols
                     for (int c = 0; c < n; c++) {
 
                         t = typeYihuoCopy[blockRow][c];
@@ -274,6 +259,7 @@ public class IsomorphicJudger {
 
                     }
 
+                    //elementary operations: switch XOR rows
                     for (int r = 0; r < n; r++) {
 
                         t = typeYihuoCopy[r][blockRow];
@@ -283,7 +269,7 @@ public class IsomorphicJudger {
                     }
 
 
-                    //进行行行转换p24
+                    //elementary operations: switch XNOR cols
                     for (int c = 0; c < n; c++) {
 
                         t = typeTonghuoCopy[blockRow][c];
@@ -292,6 +278,7 @@ public class IsomorphicJudger {
 
                     }
 
+                    //elementary operations: switch XNOR rows
                     for (int r = 0; r < n; r++) {
 
                         t = typeTonghuoCopy[r][blockRow];
@@ -301,9 +288,9 @@ public class IsomorphicJudger {
                     }
                 }
 
-                //上面的匹配没有问题，则进行行替换
-
+                //if each matrix's rows matched
                 if (colNum == n - 1) {
+                    //recursively compare next rows until we find a isomorphic solution
                     Node[] result = getTransVertices(blockArray, blockYihuo, blockTonghuo, typeArrayCopy, typeYihuoCopy, typeTonghuoCopy, n, vertices, matchedRowNum, blockRow + 1);
                     if (result != null) {
                         return result;
@@ -311,6 +298,7 @@ public class IsomorphicJudger {
 
 
                     if (matchedRowNum == n) {
+                        //all rows match, but also the matrices been operated should be the same
                         if (isMaticxSame(blockArray, typeArray)) {
                             return vertices;
                         }
@@ -371,9 +359,9 @@ public class IsomorphicJudger {
 
 
     /**
-     * 同型矩阵
+     * calculate 01 adjacency matrix
      */
-    public static void tx(int[][] p1, int[][] p2, int n) {
+    public static void oneZero(int[][] p1, int[][] p2, int n) {
         for (int i = 0; i < n; i++) {
 
             for (int j = 0; j < n; j++) {
@@ -388,9 +376,9 @@ public class IsomorphicJudger {
     }
 
     /**
-     * 异或矩阵
+     * calculate XOR matrix
      */
-    public static void yh(int[][] p1, int[][] p2, int[][] p3, int n) {
+    public static void xor(int[][] p1, int[][] p2, int[][] p3, int n) {
         for (int i = 0; i < n; i++) {
 
             for (int j = 0; j < n; j++) {
@@ -415,9 +403,9 @@ public class IsomorphicJudger {
     }
 
     /**
-     * 同或矩阵
+     * calculate XNOR matrix
      */
-    public static void th(int[][] p1, int[][] p2, int[][] p4, int n) {
+    public static void xnor(int[][] p1, int[][] p2, int[][] p4, int n) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i == j) {

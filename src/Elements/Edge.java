@@ -16,11 +16,4 @@ public class Edge {
         this.reached = false;
     }
 
-    public void setConnected(int connected) {
-        this.connected = connected;
-    }
-
-    public void setReached(boolean reached) {
-        this.reached = reached;
-    }
 }
